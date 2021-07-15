@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <Header/>
-    <Main :albumsArray="albumsArray" />
+    <Loading v-if="albumsArray.length == 0"/>
+    <Header @search="searchcardisk" />
+    <Main :albumsArray="filteredAlbumsArray"/>
   </div>
 </template>
 
@@ -9,24 +10,47 @@
 import axios from 'axios';
 import Header from './components/Header.vue';
 import Main from './components/Main.vue';
+import Loading from './components/Loading.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
     Main,
+    Loading,
   },
   data() {
     return {
       albumsArray: [],
+      // filteredAlbumsArray: [],
+      inputSearch:''
     };
   },
   created() {
     axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((response) => {
       this.albumsArray = response.data.response;
-    });
+      this.searchcardisk('')
+      // this.filteredAlbumsArray = response.data.response;
+    })
   },
-};
+  computed:{
+    filteredAlbumsArray(){
+       return this.albumsArray.filter((item) =>{
+      return item.title.includes(this.inputSearch);
+      })
+    }
+  },
+  methods: {
+    searchcardisk(searchString){
+      this.inputSearch = searchString
+    }
+    // searchcardisk(searchString){
+    //  this.filteredAlbumsArray = this.albumsArray.filter((item) =>{
+    //   return item.title.includes(searchString);
+    // })
+    // }
+  }
+}
 </script>
 
 <style lang="scss">

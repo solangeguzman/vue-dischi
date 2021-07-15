@@ -1,7 +1,6 @@
 <template>
  <div class="row cont-main">
    <nav>
-    
    </nav>
     <cardisk
       class="col-3 cont-section-img"  v-for="(item, index) in albumsArray" 

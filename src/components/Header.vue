@@ -2,6 +2,9 @@
 
    <header class="container-full">
       <img src="../assets/spotify-logo.png" width="50" alt="">
+      <div>
+          <input type="text" placeholder="Search" v-model="searchString" @keyup.enter="$emit('search', searchString)"/>
+      </div>
    </header>
 
 </template>
@@ -9,6 +12,11 @@
 <script>
 export default {
   name: 'Header',
+  data () {
+    return{
+      searchString: ''
+    }
+  }
 };
 </script>
 
