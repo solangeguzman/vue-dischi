@@ -1,17 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header/>
+    <Main :albumsArray="albumsArray" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import axios from 'axios';
+import Header from './components/Header.vue';
+import Main from './components/Main.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Header,
+    Main,
+  },
+  data() {
+    return {
+      albumsArray: [],
+    };
+  },
+  created() {
+    axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((response) => {
+      this.albumsArray = response.data.response;
+    });
   },
 };
 </script>
