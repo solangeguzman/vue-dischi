@@ -1,7 +1,15 @@
 <template>
  <div class="row cont-main">
    <nav>
-   </nav>
+    <!-- <input type="text" placeholder="Search" v-model="searchString" @keyup.enter="$emit('search', searchString)"/> -->
+  <select v-model="selected" @change="$emit('changealbumsValue',selected)">
+        <option>All</option>
+        <option>Rock</option>
+        <option>Pop</option>
+        <option>Jazz</option>
+        <option>Metal</option>
+      </select>
+  </nav>
     <cardisk
       class="col-3 cont-section-img"  v-for="(item, index) in albumsArray" 
       :key='index'
@@ -24,6 +32,11 @@ export default {
   props: {
       albumsArray: Array,
   },
+  data () {
+    return{
+      searchString: ''
+    }
+  }
 };
 </script>
 
@@ -32,7 +45,13 @@ export default {
   background-color: rgba(74, 74, 80, 0.788);
   nav{
    height: 50px;
-   background-color: brown;
+   background-color: rgba(60, 59, 68, 0.61);
+   display: flex;
+   input{
+     margin: 10px;
+     border-radius: 10px;
+     justify-content: flex-start;
+   }
   }
   .cont-section-img{
    background-color: rgba(60, 59, 68, 0.61);
